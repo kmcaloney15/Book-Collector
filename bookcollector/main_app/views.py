@@ -1,17 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic.edit import CreateView
 from .models import Book
 # Create your views here.
 
 
 #  --- DEFINE VIEWS -----------------------------
 
- 
+
 #  Home View
 def home(request):
     return HttpResponse('Home Page')
 
 # About View
+
+
 def about(request):
     return render(request, 'about.html')
 
@@ -19,8 +22,17 @@ def about(request):
 # Books Index View
 def books_index(request):
     books = Book.objects.all()
-    return render(request, 'books/index.html', { 'books': books})
+    return render(request, 'books/index.html', {'books': books})
+
 
 def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
-    return render(request, 'books/detail.html', { 'book': book})
+    return render(request, 'books/detail.html', {'book': book})
+
+
+#  ---- CLASSES -----------------------------
+
+class BookCreate(CreateView):
+    model = Book
+    # fields = '__all__'
+    fields = ['name', 'author', 'series', 'description']
