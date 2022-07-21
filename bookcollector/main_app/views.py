@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Book
@@ -30,6 +30,18 @@ def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
     review_form = ReviewForm()
     return render(request, 'books/detail.html', {'book': book, 'review_form': review_form})
+
+def add_review(request, book_id):
+    # create a ModelForm instance using the data in request.POST
+  form = ReviewForm(request.POST)
+  # validate the form
+  if form.is_valid():
+    # don't save the form to the db until it
+    # has the book_id assigned
+    new_review = form.save(commit=False)
+    new_review.book_id = book_id
+    new_review.save()
+  return redirect('detail', book_id=book_id)
 
 
 #  ---- CLASSES -----------------------------

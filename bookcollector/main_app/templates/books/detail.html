@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="col s6">
-    <form method="POST">
+    <form action="{% url 'add_review' book.id %}" method="POST">
       {% csrf_token %}
       {{ review_form.as_p }}
       <input type="submit" class="btn" value="Add Review">
@@ -44,6 +44,7 @@
 </div>
 
 <script>
+  // script for materalize datepicker
   const dateEl = document.getElementById('id_date');
   M.Datepicker.init(dateEl, {
     format: 'yyyy-mm-dd',
@@ -51,5 +52,9 @@
     setDefaultDate: true,
     autoClose: true
   });
+
+  // select script for materialize
+  const selectEl = document.getElementById('id_review');
+  M.FormSelect.init(selectEl);
 </script>
 {% endblock %}
