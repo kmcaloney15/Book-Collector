@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 from .models import Book, Fandom
 from .forms import ReviewForm
 # Create your views here.
@@ -30,7 +31,7 @@ def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
     fandom = Fandom.objects.all()
     id_list = book.fandom.all().values_list('id')
-    # Now we can query for toys whose ids are not in the list using exclude
+    # Now we can query for Fandoms whose ids are not in the list using exclude
     fandom_book_doesnt_have = Fandom.objects.exclude(id__in=id_list)
     review_form = ReviewForm()
     return render(request, 'books/detail.html', {'book': book, 'review_form': review_form, 'fandom': fandom_book_doesnt_have})
@@ -50,7 +51,7 @@ def add_review(request, book_id):
   return redirect('detail', book_id=book_id)
 
 def assoc_fandom(request, book_id, fandom_id):
-  # Note that you can pass a toy's id instead of the whole toy object
+  # Note that you can pass a Fandom's id instead of the whole Fandom object
   Book.objects.get(id=book_id).fandom.add(fandom_id)
   return redirect('detail', book_id=book_id)
 
@@ -71,4 +72,29 @@ class BookUpdate(UpdateView):
 
 class BookDelete(DeleteView):
   model = Book
+  success_url = '/books/'
+
+
+class FandomList(ListView):
+  model = Fandom
+
+
+class FandomDetail(DetailView):
+  model = Fandom
+
+
+class FandomCreate(CreateView):
+  model = Fandom
+  fields = '__all__'
+#   fields = ['name', 'description']
+  success_url = '/fandom/'
+
+class FandomUpdate(UpdateView):
+  model = Fandom
+  fields = ['name', 'description']
+  success_url = '/fandom/'
+
+
+class FandomDelete(DeleteView):
+  model = Fandom
   success_url = '/books/'

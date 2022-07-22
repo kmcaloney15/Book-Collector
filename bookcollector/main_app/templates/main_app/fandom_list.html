@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Fandom List</h1>
+
+{% for fandom in fandom_list %}
+  <a href="{% url 'fandom_detail' fandom.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ fandom.name }}</span>
+            <p>Description: {{ fandom.description }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}
