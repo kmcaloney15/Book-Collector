@@ -62,8 +62,8 @@ def assoc_fandom(request, book_id, fandom_id):
 class BookCreate(CreateView):
     model = Book
     # fields = '__all__'
-    fields = ['name', 'author', 'series', 'description'],
-    # success_url = '/books/',
+    fields = ['name', 'author', 'series', 'description']
+    success_url = '/books/'
 
 
 class BookUpdate(UpdateView):

@@ -19,8 +19,6 @@ class Fandom(models.Model):
     return reverse('fandoms_detail', kwargs={'pk': self.id})
 
 
-
-
 # Create your models here.
 class Book(models.Model):
     name=models.CharField(max_length=100)

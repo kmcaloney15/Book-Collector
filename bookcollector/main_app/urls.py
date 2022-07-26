@@ -14,7 +14,7 @@ urlpatterns = [
     path('books/<int:pk>/delete/', views.BookDelete.as_view(), name='books_delete'),
     path('books/<int:book_id>/add_review/', views.add_review, name='add_review'),
 
-     path('fandom/', views.FandomList.as_view(), name='fandom_index'),
+    path('fandom/', views.FandomList.as_view(), name='fandom_index'),
     path('fandom/<int:pk>/', views.FandomDetail.as_view(), name='fandom_detail'),
     path('fandom/create/', views.FandomCreate.as_view(), name='fandom_create'),
     path('fandom/<int:pk>/update/', views.FandomUpdate.as_view(), name='fandom_update'),
